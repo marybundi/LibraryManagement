@@ -5,15 +5,20 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "members")
 public class Member {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-    private String membershipId; // optional external ID
+    private String membershipId;
+    private String email; // new email field
 
     public Member() {}
-    public Member(String name, String membershipId) {
-        this.name = name; this.membershipId = membershipId;
+
+    public Member(String name, String membershipId, String email) {
+        this.name = name;
+        this.membershipId = membershipId;
+        this.email = email;
     }
 
     public Long getId() { return id; }
@@ -24,4 +29,7 @@ public class Member {
 
     public String getMembershipId() { return membershipId; }
     public void setMembershipId(String membershipId) { this.membershipId = membershipId; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 }
