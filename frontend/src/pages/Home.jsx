@@ -1,48 +1,91 @@
 import { Link } from "react-router-dom";
+import { BookOpen, Users, ArrowDownToLine, ArrowUpFromLine } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
-      <h1 className="text-4xl font-bold text-blue-600 mb-8">
-        Library Management System
-      </h1>
+    <div className="min-h-screen bg-white flex items-center justify-center px-4 py-12">
+      <div className="max-w-5xl w-full">
+        <div className="text-center mb-16">
+          <h1 className="text-4xl font-bold mb-4">Library Management System</h1>
+          <p className="text-gray-600">
+            Manage your library's books and members efficiently
+          </p>
+        </div>
 
-      <nav>
-        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <li>
-            <Link
-              to="/books"
-              className="block bg-blue-600 text-white text-center px-6 py-4 rounded shadow hover:bg-blue-700 transition"
-            >
-              Books
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/members"
-              className="block bg-green-600 text-white text-center px-6 py-4 rounded shadow hover:bg-green-700 transition"
-            >
-              Members
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/borrow"
-              className="block bg-yellow-500 text-white text-center px-6 py-4 rounded shadow hover:bg-yellow-600 transition"
-            >
-              Borrow Book
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/return"
-              className="block bg-red-500 text-white text-center px-6 py-4 rounded shadow hover:bg-red-600 transition"
-            >
-              Return Book
-            </Link>
-          </li>
-        </ul>
-      </nav>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Books */}
+          <Link
+            to="/books"
+            className="group bg-white border-2 border-black p-8 transition-all duration-300 hover:bg-black hover:text-white text-left rounded"
+          >
+            <div className="flex items-start space-x-4">
+              <div className="flex-shrink-0">
+                <BookOpen className="w-8 h-8" />
+              </div>
+              <div>
+                <h3 className="mb-2 font-semibold">Books</h3>
+                <p className="text-gray-600 group-hover:text-gray-300">
+                  Browse and manage book collection
+                </p>
+              </div>
+            </div>
+          </Link>
+
+          {/* Members */}
+          <Link
+            to="/members"
+            className="group bg-white border-2 border-black p-8 transition-all duration-300 hover:bg-black hover:text-white text-left rounded"
+          >
+            <div className="flex items-start space-x-4">
+              <div className="flex-shrink-0">
+                <Users className="w-8 h-8" />
+              </div>
+              <div>
+                <h3 className="mb-2 font-semibold">Members</h3>
+                <p className="text-gray-600 group-hover:text-gray-300">
+                  View and manage library members
+                </p>
+              </div>
+            </div>
+          </Link>
+
+          {/* Borrow Book */}
+          <Link
+            to="/borrow"
+            className="group bg-white border-2 border-black p-8 transition-all duration-300 hover:bg-black hover:text-white text-left rounded"
+          >
+            <div className="flex items-start space-x-4">
+              <div className="flex-shrink-0">
+                <ArrowDownToLine className="w-8 h-8" />
+              </div>
+              <div>
+                <h3 className="mb-2 font-semibold">Borrow Book</h3>
+                <p className="text-gray-600 group-hover:text-gray-300">
+                  Issue a book to a member
+                </p>
+              </div>
+            </div>
+          </Link>
+
+          {/* Return Book */}
+          <Link
+            to="/return"
+            className="group bg-white border-2 border-black p-8 transition-all duration-300 hover:bg-black hover:text-white text-left rounded"
+          >
+            <div className="flex items-start space-x-4">
+              <div className="flex-shrink-0">
+                <ArrowUpFromLine className="w-8 h-8" />
+              </div>
+              <div>
+                <h3 className="mb-2 font-semibold">Return Book</h3>
+                <p className="text-gray-600 group-hover:text-gray-300">
+                  Process book returns
+                </p>
+              </div>
+            </div>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
