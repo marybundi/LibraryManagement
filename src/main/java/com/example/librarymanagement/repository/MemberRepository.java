@@ -1,11 +1,9 @@
-package com.example.library.repository;
+package com.example.librarymanagement.repository;
 
-import com.example.library.model.Member;
+import com.example.librarymanagement.model.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.Optional;
 
-@Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
-    // Find a member by email
-    Member findByEmail(String email);
+    Optional<Member> findByMembershipId(String membershipId);
 }

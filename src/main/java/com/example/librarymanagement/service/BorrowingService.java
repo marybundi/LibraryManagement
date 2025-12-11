@@ -1,40 +1,70 @@
-package com.example.library.service;
+package com.example.librarymanagement.service;
 
-import com.example.library.model.Borrowing;
-import com.example.library.repository.BorrowingRepository;
+import com.example.librarymanagement.model.Book;
+import com.example.librarymanagement.model.Borrowing;
+import com.example.librarymanagement.model.Member;
+import com.example.librarymanagement.repository.BookRepository;
+import com.example.librarymanagement.repository.BorrowingRepository;
+import com.example.librarymanagement.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BorrowingService {
+    private final BorrowingRepository borrowingRepo;
+    private final BookRepository bookRepo;
+    private final MemberRepository memberRepo;
+
+    private final int LOAN_DAYS = 14;
 
     @Autowired
-    private BorrowingRepository borrowingRepository;
-
-    public List<Borrowing> getAllBorrowings() {
-        return borrowingRepository.findAll();
+    public BorrowingService(BorrowingRepository borrowingRepo, BookRepository bookRepo, MemberRepository memberRepo){
+        this.borrowingRepo = borrowingRepo;
+        this.bookRepo = bookRepo;
+        this.memberRepo = memberRepo;
     }
 
-    public Optional<Borrowing> getBorrowingById(Long id) {
-        return borrowingRepository.findById(id);
+    public Borrowing borrow(Long bookId, Long memberId){
+        Book book = bookRepo.findById(bookId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found"));
+        Member member = memberRepo.findById(memberId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
+
+        // check active borrowing for the book
+        if (borrowingRepo.findByBookIdAndReturnedDateIsNull(bookId).isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Book already borrowed");
+        }
+
+        Borrowing b = new Borrowing();
+        b.setBook(book);
+        b.setMember(member);
+        b.setBorrowDate(LocalDate.now());
+        b.setDueDate(LocalDate.now().plusDays(LOAN_DAYS));
+        return borrowingRepo.save(b);
     }
 
-    public Borrowing addBorrowing(Borrowing borrowing) {
-        return borrowingRepository.save(borrowing);
+    public Borrowing returnBook(Long bookId, Long memberId){
+        Borrowing active = borrowingRepo.findByBookIdAndReturnedDateIsNull(bookId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Active borrowing not found for this book"));
+
+        if (!active.getMember().getId().equals(memberId)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This book was not borrowed by this member");
+        }
+
+        active.setReturnedDate(LocalDate.now());
+        return borrowingRepo.save(active);
     }
 
-    public void deleteBorrowing(Long id) {
-        borrowingRepository.deleteById(id);
+    public List<Borrowing> activeBorrowings(){
+        return borrowingRepo.findByReturnedDateIsNull();
     }
 
-    public List<Borrowing> getBorrowingsByMemberId(Long memberId) {
-        return borrowingRepository.findByMemberId(memberId);
-    }
-
-    public List<Borrowing> getBorrowingsByBookId(Long bookId) {
-        return borrowingRepository.findByBookId(bookId);
+    public List<Borrowing> allBorrowings(){
+        return borrowingRepo.findAll();
     }
 }

@@ -1,12 +1,13 @@
-package com.example.library.repository;
+package com.example.librarymanagement.repository;
 
-import com.example.library.model.Book;
+import com.example.librarymanagement.model.Borrowing;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import java.util.List;
 
-@Repository
-public interface BookRepository extends JpaRepository<Book, Long> {
-    // Custom query example: find books by title
-    List<Book> findByTitleContainingIgnoreCase(String title);
+import java.util.List;
+import java.util.Optional;
+
+public interface BorrowingRepository extends JpaRepository<Borrowing, Long> {
+    Optional<Borrowing> findByBookIdAndReturnedDateIsNull(Long bookId);
+    List<Borrowing> findByMemberId(Long memberId);
+    List<Borrowing> findByReturnedDateIsNull();
 }
