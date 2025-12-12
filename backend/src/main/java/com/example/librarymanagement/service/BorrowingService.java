@@ -40,6 +40,10 @@ public class BorrowingService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Book already borrowed");
         }
 
+        // Update book availability
+        book.setAvailable(false);
+        bookRepo.save(book);
+
         Borrowing b = new Borrowing();
         b.setBook(book);
         b.setMember(member);
@@ -57,7 +61,14 @@ public class BorrowingService {
         }
 
         active.setReturnedDate(LocalDate.now());
-        return borrowingRepo.save(active);
+        Borrowing saved = borrowingRepo.save(active);
+
+        // Update book availability
+        Book book = active.getBook();
+        book.setAvailable(true);
+        bookRepo.save(book);
+
+        return saved;
     }
 
     public List<Borrowing> activeBorrowings(){

@@ -22,10 +22,13 @@ export default function BorrowBook() {
       return;
     }
     try {
-      await borrowBook(bookId, memberId);
+      await borrowBook(Number(bookId), Number(memberId));
       setMessage("Book borrowed successfully!");
       setBookId("");
       setMemberId("");
+
+      const updatedBooks = await getBooks();
+      setBooks(updatedBooks);
     } catch (err) {
       setMessage("Error borrowing book.");
     }

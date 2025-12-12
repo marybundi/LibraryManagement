@@ -7,7 +7,11 @@ export default function Books() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    getBooks().then(setBooks);
+    const fetchBooks = () => getBooks().then(setBooks);
+    fetchBooks();
+
+    const interval = setInterval(fetchBooks, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   // Filter books by title or author

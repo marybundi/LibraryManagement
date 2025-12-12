@@ -5,16 +5,15 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "books")
 public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
     private String author;
     private String isbn;
 
-    // Add availability
-    private boolean available = true;  // default is available
+    @Column(nullable = false)
+    private boolean available = true;
 
     public Book() {}
 
@@ -22,7 +21,7 @@ public class Book {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
-        this.available = true;  // default available
+        this.available = true;
     }
 
     public Long getId() { return id; }
