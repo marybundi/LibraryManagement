@@ -1,11 +1,11 @@
 ## CONTRIBUTORS
 
-Felix Agure - IN13/00171/23
-Reuben Oduk - IN13/00081/22
-Salome Mwende - IN13/00012/23
-George Ceaser - IN13/000126/23
-Maryann Wangechi - IN13/00036/22
-Mary Bundi - IN13/00101/23
+1. Felix Agure - IN13/00171/23
+2. Reuben Oduk - IN13/00081/22
+3. Salome Mwende - IN13/00012/23
+4. George Ceaser - IN13/000126/23
+5. Maryann Wangechi - IN13/00036/22
+6. Mary Bundi - IN13/00101/23
 
 # Library Management System
 
@@ -23,6 +23,7 @@ A simple Library Management System built with **Spring Boot** (backend) and **Re
 ---
 
 ## Screenshots
+
 ![Dashboard](images/dashboard.jpeg)
 ![Members](images/members.jpeg)
 ![Books](images/books.jpeg)
@@ -37,7 +38,6 @@ A simple Library Management System built with **Spring Boot** (backend) and **Re
 - Node.js 18+ (for React + vite frontend)
 - pnpm
 
-
 ---
 
 ## Getting Started
@@ -50,7 +50,10 @@ cd LibraryManagement
 cd LibraryManagement/frontend => pnpm install(dependencies)
 
 ```
+
 ### 2. Run project
- ```
-   cd LibraryManagement/backend => ./mvnw spring-boot:run
-   cd LibraryManagement/frontend => pnpm run dev
+
+```
+  cd LibraryManagement/backend => ./mvnw spring-boot:run
+  cd LibraryManagement/frontend => pnpm run dev
+```
