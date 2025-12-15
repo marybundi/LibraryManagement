@@ -22,6 +22,10 @@ A simple Library Management System built with **Spring Boot** (backend) and **Re
 
 ---
 
+## Demo Video
+
+[Watch the demo](videos/demo.mp4)
+
 ## Screenshots
 
 ![Dashboard](images/dashboard.jpeg)
