@@ -1,3 +1,12 @@
+## CONTRIBUTORS
+
+Felix Agure - IN13/00171/23
+Reuben Oduk - IN13/00081/22
+Salome Mwende - IN13/00012/23
+George Ceaser - IN13/000126/23
+Maryann Wangechi - IN13/00036/22
+Mary Bundi - IN13/00101/23
+
 # Library Management System
 
 A simple Library Management System built with **Spring Boot** (backend) and **React** (frontend) that allows borrowing and returning books, and viewing active borrowings.
@@ -10,6 +19,14 @@ A simple Library Management System built with **Spring Boot** (backend) and **Re
 - Return a book
 - View active borrowings
 - View all borrowings
+
+---
+
+## Screenshots
+![Dashboard](images/dashboard.jpeg)
+![Members](images/members.jpeg)
+![Books](images/books.jpeg)
+![Return](images/return.jpeg)
 
 ---
 
